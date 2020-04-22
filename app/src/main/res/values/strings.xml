@@ -1,0 +1,190 @@
+<resources>
+    <string name="app_name">Learn Ateso</string>
+    <!--<string name="appbar_scrolling_view_behavior" translatable="false">
+        android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>-->
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="favourite">Favourites</string>
+    <string name="random_wrd">Random Phrase</string>
+    <string name="ateso_quiz">Test your Ateso skills</string>
+    <string name="action_feedback">Send Feedback</string>
+    <string name="choose_email_client">Choose email client</string>
+    <string name="cat_instructions">Select a category to start</string>
+    <string name="quiz_preps_text">Quiz content for this section is still under preparation. Thanks for your patience</string>
+    <string name="open_phrases">Phrases</string>
+    <string name="start_quiz">Quiz</string>
+
+    <!--LA adMob App Id -->
+    <string name="AdMob_App_ID">ca-app-pub-3075330085087679~4136422493</string>
+    <!--test ad banner unit-->
+    <string name="test_banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <!--live ad banner unit
+    use this when the app is in development mode
+    ca-app-pub-3940256099942544/6300978111
+
+    Live banner ad unit id ca-app-pub-3075330085087679/1822084491
+
+    Live interstitial ad unit ca-app-pub-3075330085087679/1767119183
+
+    unkown interstitial ad id ca-app-pub-3940256099942544/1033173712
+    -->
+    <string name="live_banner_ad_unit_id">ca-app-pub-3075330085087679/1822084491</string>
+
+    <string name="about">About Ateso</string>
+    <string name="about_ateso">
+        Ateso is a Nilo-Saharan language, spoken by the Teso people of Uganda and Kenya &#8230;
+        Read more https://en.wikipedia.org/wiki/Teso_language
+    </string>
+    <string name="about_app">
+        This app aims at teaching Ateso to anyone interested in learning the beautiful language.
+    </string>
+
+    <string name="abbrevs">"
+        m: masculine
+        f: feminine
+        y.i: you inclusive
+        y.e: you exclusive
+        "
+    </string>
+    <string name="abbreviation"> Abbreviations</string>
+    <string name="section_image_description">
+        Section image.
+    </string>
+    <string name="task">Select a task to proceed</string>
+    <string name="meaning">Select the correct meaning of the word/phrase from the options below.</string>
+    <string name="audio_comparison_intructions">
+        Of the two audios below, which one is the correct translation of the word/phrase below.</string>
+    <string name="voice_recording_intructions">
+        Be the teacher: Record yourself speaking the Ateso word/phrase you heard then compare to
+        ensure that you said it right or atleast something close.</string>
+    <string name="sentence_construction_instructions">Arrange the Ateso words below to form the correct
+    translation of the English phrase.</string>
+    <string name="picture_quiz_instructions">Select the correct image/translation of the Ateso word given.</string>
+    <string name="num">Numbers</string>
+    <string name="score">Your Score</string>
+    <string name="direct_hits">Direct Hits:</string>
+    <string name="score_note">
+        *A "Direct Hit" refers to the number of times you select the
+        right translation of a given word or phrase on first trial.*
+    </string>
+    <string name="days">Days of the week - Aparasia Nu Esabiti</string>
+
+    <string name="content_desc_greet">Greet</string>
+    <string name="content_desc_audioicon">Audio</string>
+    <string name="content_desc_catimage">Category Image</string>
+    <string name="content_desc_food">Food</string>
+    <string name="content_desc_bus">Bus</string>
+    <string name="content_desc_car">Car</string>
+    <string name="content_desc_good">good</string>
+    <string name="content_desc_guysgreet">Greets</string>
+
+    <string name="button_name_next">Next</string>
+    <string name="button_name_back">Back</string>
+    <string name="button_name_next2">Next</string>
+    <string name="button_name_back2">Back</string>
+    <string name="button_name_start">Start</string>
+    <string name="button_name_continue">Continue</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Registration and login strings -->
+
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Fullname</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="btn_link_to_register">Not a member? Sign up now.</string>
+    <string name="btn_link_to_login">Already registred! Login Me.</string>
+    <string name="welcome">Welcome</string>
+    <string name="btn_logout">LOGOUT</string>
+    <string name="name">Fullname</string>
+
+    <!-- End of Registration and login strings -->
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Settings for Font Size -->
+    <string name="pref_title_font_size">Font Size</string>
+    <string-array name="pref_font_size_titles">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+    </string-array>
+    <string-array name="pref_font_size_values">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+    </string-array>
+
+    <!-- End Settings for Font Size -->
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">You</string>
+    <string name="title_shop">Shop</string>
+    <string name="title_pro">LA+</string>
+    <string name="title_activity_main3">Main3Activity</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- End of Strings related to Settings -->
+</resources>

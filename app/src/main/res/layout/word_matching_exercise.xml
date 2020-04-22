@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <com.learnateso.learn_ateso.helpers.FingerLineDraw
+        android:id="@+id/wordMatchingField"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/greet" />
+
+    <TextView
+        android:id="@+id/eng_ateso_phrase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Ateso/English phrase"
+        android:textSize="23sp" />
+
+    <TextView
+        android:id="@+id/sentenceConstructed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Ateso/English text being constructed"
+        android:textSize="23sp" />
+
+    <Button
+        android:id="@+id/continu"
+        android:padding="10dp"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_name_continue" />
+
+</LinearLayout>

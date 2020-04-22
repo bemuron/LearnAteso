@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+<RelativeLayout
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_black"
+        android:text="@string/score"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:id="@+id/score_text"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/score_text"
+        android:textSize="80sp"
+        android:text="49"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/score_points" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/score_points"
+        android:textColor="@color/text_black"
+        android:textSize="30sp"
+        android:text="@string/direct_hits"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/directHit" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:id="@+id/num_dhits"
+        android:textColor="@color/colorAccent"
+        android:layout_alignTop="@+id/directHit"
+        android:layout_toRightOf="@+id/score_text"
+        android:layout_toEndOf="@+id/score_text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_black"
+        android:text="Category: Basics Section: Greetings"
+        android:textSize="20sp"
+        android:id="@+id/category_section"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/directHit"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_black"
+        android:text="@string/score_note"
+        android:textSize="15sp"
+        android:id="@+id/note"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/category_section"/>
+
+    <Button
+        android:id="@+id/continu"
+        android:layout_marginTop="20dp"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/card_margin"
+        android:layout_below="@+id/note"
+        android:text="@string/button_name_continue" />
+
+</RelativeLayout>
+</ScrollView>

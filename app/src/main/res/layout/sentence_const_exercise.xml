@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<RelativeLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:id="@+id/eng_ateso_phrase_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/eng_ateso_phrase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_black"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            android:text="Ateso/English phrase"
+            android:textSize="23sp" />
+
+        <Button
+            android:id="@+id/audio_btn"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            style="?android:attr/buttonStyleSmall"
+            android:background="@drawable/audioicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/sentenceConstructed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eng_ateso_phrase_ll"
+        android:textColor="@color/text_black"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/sentence_construction_instructions"
+        android:textSize="23sp" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_below="@+id/sentenceConstructed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_black"
+        android:padding="10dp"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
+    <com.learnateso.learn_ateso.utilities.MyKeyboard
+        android:id="@+id/keyboard"
+        android:padding="10dp"
+        android:layout_below="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+    <Button
+        android:id="@+id/continu"
+        android:padding="10dp"
+        style="?android:attr/buttonStyleSmall"
+        android:background="@color/colorPrimary"
+        android:layout_below="@+id/keyboard"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/button_name_continue" />
+
+</RelativeLayout>
+</ScrollView>

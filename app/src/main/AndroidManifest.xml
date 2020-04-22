@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.learnateso.learn_ateso">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!-- AdMob App ID -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/AdMob_App_ID" /> <!-- Log in Activity -->
+        <activity
+            android:name=".ui.activities.LoginActivity"
+            android:label="@string/app_name"
+            android:noHistory="true"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity> <!-- Register Activity -->
+        <activity
+            android:name=".ui.activities.RegisterActivity"
+            android:label="@string/app_name"
+            android:noHistory="true"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activities.Main2Activity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- CategorySections Activity -->
+        <activity
+            android:name=".ui.activities.CategorySectionsActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ui.activities.Main2Activity"
+            android:screenOrientation="portrait" />
+        <!-- QuizCategories Activity -->
+        <activity android:name=".ui.activities.QuizCategoriesActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ui.activities.Main2Activity"/>
+        <!-- PhraseList Activity -->
+        <activity
+            android:name=".ui.activities.PhraseListActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ui.activities.CategorySectionsActivity"
+            android:screenOrientation="portrait" />
+        <!-- WorkBookActivityBook -->
+        <!-- android:noHistory="true" -->
+        <activity
+            android:name=".ui.activities.WorkBookActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ui.activities.QuizCategoriesActivity"
+            android:screenOrientation="portrait" /> <!-- Favourites Activity
+        <activity
+            android:name=".ui.activities.FavouritesActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ui.activities.Main2Activity"
+            android:theme="@style/AppTheme.NoActionBar" />--> <!-- Settings Activity -->
+        <activity
+            android:name=".ui.activities.SettingsActivity"
+            android:label="@string/action_settings"
+            android:noHistory="true"
+            android:parentActivityName=".ui.activities.Main2Activity"
+            android:screenOrientation="portrait" /> <!-- Display score Activity -->
+        <activity
+            android:name=".ui.activities.ScoreActivity"
+            android:label="@string/score"
+            android:noHistory="true"
+            android:screenOrientation="portrait"></activity> <!-- About Ateso Activity -->
+        <activity
+            android:name=".ui.activities.AboutAtesoActivity"
+            android:label="@string/about"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.Main2Activity" />
+        </activity>
+    </application>
+
+</manifest>

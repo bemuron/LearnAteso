@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+<LinearLayout
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:gravity="center"
+    android:id="@+id/picQuizGridItemContainer"
+    android:orientation="vertical">
+
+    <com.learnateso.learn_ateso.helpers.CheckableImageButton
+        android:id="@+id/checkable_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/checkable_image_selector"
+        android:src="@drawable/greeting" />
+
+    <TextView
+        android:id="@+id/quiz_pic_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_black"
+        android:paddingBottom="15dp"
+        android:text="Greetings"/>
+
+</LinearLayout>
+</RelativeLayout>

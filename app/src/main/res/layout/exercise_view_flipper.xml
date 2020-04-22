@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/flipper"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.activities.WorkBookActivity">
+<!--
+    <ProgressBar
+        android:id="@+id/workbook_progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:padding="5dp"
+        android:layout_gravity="center_horizontal"
+        android:max="100"
+        android:progressDrawable="@drawable/custom_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+-->
+    <TextView
+        android:id="@+id/progress_count"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/text_black"
+        android:padding="5dp"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_below="@+id/progress_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/quiz_preps_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:src="@drawable/preparing_quiz"/>
+    <TextView
+        android:id="@+id/quiz_content_prep_text"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/quiz_preps_iv"
+        android:textColor="@color/text_black"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/quiz_preps_text"
+        android:padding="5dp"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/live_banner_ad_unit_id"/>
+
+</RelativeLayout>
