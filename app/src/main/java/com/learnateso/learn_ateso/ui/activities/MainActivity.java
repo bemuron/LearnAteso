@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity{
         //noinspection SimplifiableIfStatement
         if (id == R.id.about_ateso) {
             AboutAteso.Show(MainActivity.this);
-        } else if (id == R.id.fPhrase) {
+        } else if (id == R.id.action_favorite) {
             //Intent intent = new Intent(this, FavouritesActivity.class);
             //startActivity(intent);
             return true;

@@ -2,6 +2,11 @@ package com.learnateso.learn_ateso.ui.activities;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -9,15 +14,18 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.learnateso.learn_ateso.R;
 import com.learnateso.learn_ateso.ui.fragments.SectionsFragment;
 
 public class CategorySectionsActivity extends AppCompatActivity {
-
+    private static final String TAG = CategorySectionsActivity.class.getSimpleName();
     public static CategorySectionsActivity instance;
     private String catname;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,51 @@ public class CategorySectionsActivity extends AppCompatActivity {
         //setSupportActionBar(toolbar);
         setupActionBar();
         instance = this;
+
+        //initialise the ads
+        MobileAds.initialize(this, "ca-app-pub-3075330085087679~4136422493");
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3075330085087679/1767119183");
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(adRequest);
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            private void showToast(String message) {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdLoaded() {
+                Log.e(TAG, "Interstitial Ad loaded");
+                mInterstitialAd.show();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                //showToast(String.format("Ad failed to load with error code %d.", errorCode));
+                Log.e(TAG, "Failed to load ad "+errorCode);
+            }
+
+            @Override
+            public void onAdOpened() {
+                //showToast("Ad opened.");
+                Log.e(TAG, "Ad opened");
+            }
+
+            @Override
+            public void onAdClosed() {
+                Log.e(TAG, "Ad closed");
+
+                //mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                Log.e(TAG, "Ad left application");
+            }
+        });
 
         //setupActionBar();
 

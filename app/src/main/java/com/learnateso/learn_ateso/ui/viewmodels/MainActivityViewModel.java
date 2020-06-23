@@ -2,13 +2,17 @@ package com.learnateso.learn_ateso.ui.viewmodels;
 
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
 import android.database.Cursor;
 import android.util.Log;
 
 import com.learnateso.learn_ateso.data.AtesoRepository;
+import com.learnateso.learn_ateso.models.Phrase;
 import com.learnateso.learn_ateso.models.User;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static com.android.volley.VolleyLog.TAG;
 
@@ -23,7 +27,8 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     private HashMap<String, String> mUser;
 
-    private Cursor userDetailsCursor;
+    private Cursor userDetailsCursor, searchResultsCursor;
+    private LiveData<List<Phrase>> phraseSearchResultsList;
 
     //constructor that gets a reference to the repository and gets the user details
     public MainActivityViewModel(Application application) {
@@ -68,6 +73,20 @@ public class MainActivityViewModel extends AndroidViewModel {
         return mRepository.countAllPhrases();
     }
     */
+
+    //get the search results
+    public LiveData<List<Phrase>> getSearchResults(String query){
+        phraseSearchResultsList = mRepository.getSearchResults(query);
+
+        return phraseSearchResultsList;
+    }
+
+    //get the search suggestions
+    public Cursor getSearchResultsCursor(String query){
+        searchResultsCursor = mRepository.getSearchResultsCursor(query);
+
+        return searchResultsCursor;
+    }
 
 
 }

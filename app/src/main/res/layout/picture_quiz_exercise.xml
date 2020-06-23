@@ -31,7 +31,7 @@
             android:paddingBottom="@dimen/card_padding"
             android:paddingTop="@dimen/card_padding"
             android:textSize="@dimen/section_title"
-            android:text="@string/picture_quiz_instructions"
+            android:text="Ateso Phrase"
             android:layout_height="wrap_content" />
 
         <GridView
@@ -41,15 +41,16 @@
             android:numColumns="2"
             android:gravity="center"/>
 
+        <Button
+            android:id="@+id/button_continue"
+            android:text="Continue"
+            android:layout_below="@id/pic_quiz_container"
+            style="?android:attr/buttonStyleSmall"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
-    <Button
-        android:id="@+id/button_continue"
-        android:text="Continue"
-        android:layout_below="@id/pic_quiz_container"
-        style="?android:attr/buttonStyleSmall"
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </RelativeLayout>
 
 <!--

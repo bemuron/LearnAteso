@@ -15,7 +15,7 @@ public class PhraseListViewModel extends AndroidViewModel {
     //private member variable to hold reference to the repository
     private AtesoRepository mRepository;
 
-    private Cursor phraseSectionCursor, phraseEnglishTranslation;
+    private Cursor phraseSectionCursor, phraseEnglishTranslation, phraseCursor;
     private LiveData<List<Phrase>> phraseSectionList;
     private LiveData<List<Phrase>> favouritePhraseList;
     private LiveData<List<Phrase>> randomPhraseList;
@@ -65,5 +65,11 @@ public class PhraseListViewModel extends AndroidViewModel {
     //a wrapper insert() method that calls the Repository's insert() method. In this way,
     // the implementation of insert() is completely hidden from the UI.
     //public void insert(WorkBook workBook) { mRepository.insertLesson(workBook); }
+
+    //get the section name of the phrase the user clicked on from the suggestions
+    public String getSectionName(int sectionId){
+
+        return mRepository.getSectionName(sectionId);
+    }
 
 }

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import androidx.annotation.Nullable;
@@ -31,8 +33,11 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.learnateso.learn_ateso.R;
+import com.learnateso.learn_ateso.data.AtesoRepository;
+import com.learnateso.learn_ateso.data.database.PhrasesDao;
 import com.learnateso.learn_ateso.models.Phrase;
 import com.learnateso.learn_ateso.ui.adapters.PhrasesExpandableListAdapter;
+import com.learnateso.learn_ateso.ui.viewmodels.MainActivityViewModel;
 import com.learnateso.learn_ateso.ui.viewmodels.PhraseListViewModel;
 
 import java.util.ArrayList;
@@ -50,7 +55,6 @@ public class PhraseListActivity extends AppCompatActivity implements PhrasesExpa
     private static final String TAG = PhraseListActivity.class.getSimpleName();
     private PhraseListViewModel phraseListViewModel;
     private int categoryId,sectionId;
-    private SimpleCursorTreeAdapter adapter;
     private List<Phrase> phraseList;
     private List<String> expandableListTitle;
     private LinkedHashMap<String, List<Phrase>> expandableListDetail;
@@ -62,10 +66,11 @@ public class PhraseListActivity extends AppCompatActivity implements PhrasesExpa
     private int audioId,phraseID, favouriteValue;
     private Parcelable state;
     MediaPlayer audioplayer = null;
-    private int favouritePhrasePosition;
+    private int favouritePhrasePosition, rowid;
     ImageView notFav, inFavs;
     private boolean getFavourites;
     private String categoryName, sectionName;
+    private Cursor c,cursor;
     Random rand;
     private AdView mAdView;
     //prepare the share link
@@ -145,6 +150,13 @@ public class PhraseListActivity extends AppCompatActivity implements PhrasesExpa
 
         //if the user has clicked on random phrase
         if (phraseID > 0){
+            try {
+                //set the name of this fragment in the toolbar
+                (this).getSupportActionBar().setTitle("Random Phrase");
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.e(TAG, e.getMessage());
+            }
             phraseListViewModel.getRandomPhraseList(phraseID).observe(this,
                     new Observer<List<Phrase>>() {
                         @Override
@@ -188,7 +200,7 @@ public class PhraseListActivity extends AppCompatActivity implements PhrasesExpa
                     });
 
         }
-        else {
+        else if(sectionId != 0 && categoryId != 0) {
         /*
         user has clicked on a specific section
         an observer for the LiveData returned by getPhrasesInSection.
@@ -202,9 +214,11 @@ public class PhraseListActivity extends AppCompatActivity implements PhrasesExpa
                             // Update the cached copy of the categories in the adapter.
                             phraseList = phrases;
                             displayPhraseList(phraseList);
-
                         }
                     });
+        }else {//user is coming from a search query
+            //async task to get and load data
+            new getPhraseAsyncTask(phraseListViewModel).execute();
         }
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -216,6 +230,131 @@ public class PhraseListActivity extends AppCompatActivity implements PhrasesExpa
         if (actionBar != null) {
             // Show the Up button in the action bar.
             actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    //get the phrase the user clicked on from the search results
+    private class getPhraseAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private PhraseListViewModel phraseListViewModel;
+
+        getPhraseAsyncTask(PhraseListViewModel viewModel){
+            phraseListViewModel = viewModel;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params){
+
+            Uri uri = getIntent().getData();
+            Log.e(TAG,"Search URI = "+uri);
+            cursor = getContentResolver().query(uri, null, null, null, null);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            if (cursor != null) {
+            cursor.moveToFirst();
+
+            //get the section Id of the phrase clicked on
+            int sectionIdIndex = cursor.getColumnIndexOrThrow("section_id");
+            int sectionId = cursor.getInt(sectionIdIndex);
+
+            //async task
+            //use the section id to get the section name
+            new getSectionNameAsyncTask(phraseListViewModel).execute(sectionId);
+            Log.e(TAG,"Section ID of phrase clicked = "+sectionId);
+
+            //get the category id of the phrase clicked
+            int categoryIdIndex = cursor.getColumnIndexOrThrow("category_id");
+            int categoryId = cursor.getInt(categoryIdIndex);
+            Log.e(TAG,"Category ID of phrase clicked = "+categoryId);
+
+            //get the row Id of the phrase clicked on
+            int rowIdIndex = cursor.getColumnIndexOrThrow("rowid");
+            rowid = cursor.getInt(rowIdIndex);
+            Log.e(TAG,"Row ID of phrase clicked = "+rowid);
+
+            //get these set of phrases
+            phraseListViewModel.getPhrasesInSection(sectionId, categoryId).observe(PhraseListActivity.this,
+                    new Observer<List<Phrase>>() {
+                        @Override
+                        public void onChanged(@Nullable final List<Phrase> phrases) {
+                            // Update the cached copy of the categories in the adapter.
+                            phraseList = phrases;
+                            displayPhraseList(phraseList);
+
+                            //scroll to the position of that phrase that was clicked from the search
+                            //expand it
+                            //play the audio too
+                            int len = expandableListAdapter.getGroupCount();
+                            for (int i = 0; i < len; i++) {
+                                if (rowid == expandableListDetail.get(
+                                        expandableListTitle.get(i)).get(0).getRowId()) {
+                                    exlv.smoothScrollToPositionFromTop(i,20);
+                                    exlv.expandGroup(i);
+
+                                    //play the audio
+                                    audioname = expandableListDetail.get(
+                                            expandableListTitle.get(i)).get(0).getAtesoAudio().toLowerCase(Locale.US);
+                                    audioId = getResources().getIdentifier(audioname,
+                                            "raw", getPackageName());
+                                    //audioplayer.reset();
+                                    if (audioplayer != null){
+                                        if (audioplayer.isPlaying()||audioplayer.isLooping()) {
+                                            audioplayer.stop();
+                                        }
+                                        audioplayer.release();
+                                        audioplayer = null;
+                                    }
+                                    audioplayer = MediaPlayer.create(getApplicationContext(), audioId);
+                                    //play audio
+                                    audioplayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                        @Override
+                                        public void onPrepared(MediaPlayer mp) {
+                                            mp.start();
+                                        }
+                                    });
+                                    //get out of the loop
+                                    break;
+                                }
+                            }
+                        }
+                    });
+            } else {
+                Toast.makeText(PhraseListActivity.this, "Sorry couldn't load phrases", Toast.LENGTH_LONG).show();
+                Log.e(TAG,"Cursor is null = "+cursor);
+                cursor.close();
+            }
+        }
+    }
+
+    //get the section name of  phrase the user clicked on from the search results
+    private class getSectionNameAsyncTask extends AsyncTask<Integer, Void, String> {
+
+        private PhraseListViewModel phraseListViewModel;
+
+        getSectionNameAsyncTask(PhraseListViewModel viewModel){
+            phraseListViewModel = viewModel;
+        }
+
+        @Override
+        protected String doInBackground(final Integer... params){
+            sectname = phraseListViewModel.getSectionName(params[0]);
+            Log.e(TAG, "Section id = "+params[0]);
+            return sectname;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Log.e(TAG, "Section name = "+sectname);
+            try {
+                //set the name of this fragment in the toolbar
+                PhraseListActivity.this.getSupportActionBar().setTitle(sectname);
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.e(TAG, e.getMessage());
+            }
         }
     }
 
@@ -244,15 +383,10 @@ public class PhraseListActivity extends AppCompatActivity implements PhrasesExpa
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
                                         int groupPosition,long id) {
+                Log.e(TAG, "On Group Click group position = "+groupPosition);
+                Log.e(TAG, "OnGroupClick group ID = "+expandableListAdapter.getGroupId(groupPosition));
+                Log.e(TAG, "On Group Click group position = "+phraseList);
 
-                //Toast.makeText(getApplicationContext(), expandableListDetail.get(
-                  //      expandableListTitle.get(groupPosition)).get(0).getAtesoAudio(),
-                    //    Toast.LENGTH_SHORT).show();
-                //group click code here
-                /*phraseID = cursor.getInt(cursor.getColumnIndex("phrase_id"));//get the ID of the current phrase
-                favouriteValue = cursor.getInt(cursor.getColumnIndex("isFavourite"));//check if its a favourite
-                ePhrase = cursor.getString(cursor.getColumnIndex("translation"));//get the english phrase
-                aPhrase = cursor.getString(cursor.getColumnIndex("ateso_phrase"));//get the ateso phrase*/
                 audioname = expandableListDetail.get(
                         expandableListTitle.get(groupPosition)).get(0).getAtesoAudio().toLowerCase(Locale.US);
                 audioId = getResources().getIdentifier(audioname,
@@ -284,7 +418,7 @@ public class PhraseListActivity extends AppCompatActivity implements PhrasesExpa
             @Override
             public void onGroupExpand(int groupPosition) {
                 int len = expandableListAdapter.getGroupCount();
-                Log.e(TAG, "group position parent "+groupPosition);
+                Log.e(TAG, "OnGroupExpand group position parent "+groupPosition);
 
                     for (int i = 0; i < len; i++) {
                         if (i != groupPosition) {
@@ -350,13 +484,13 @@ public class PhraseListActivity extends AppCompatActivity implements PhrasesExpa
         int isFavourite = phrase.getIsFavourite();
         if (isFavourite == 1) {
             Log.e(TAG, "removing from favourites");
-            phraseListViewModel.removeFavouritePhrase(phrase.getPhraseId());
+            phraseListViewModel.removeFavouritePhrase(phrase.getRowId());
             Log.e(TAG, "group position child "+position);
             /*imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_black_24dp));
             imageView.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_selected));*/
         } else {
             Log.e(TAG, "adding to favourites");
-            phraseListViewModel.addFavouritePhrase(phrase.getPhraseId());
+            phraseListViewModel.addFavouritePhrase(phrase.getRowId());
             Log.e(TAG, "group position child "+position);
             /*imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border_black_24dp));
             imageView.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));*/
@@ -404,17 +538,8 @@ public class PhraseListActivity extends AppCompatActivity implements PhrasesExpa
             });
 
             //2 image views of the favourites star and the click listeners
-            notFav = (ImageView) rowView.findViewById(R.id.fav_grey);
-            inFavs = (ImageView) rowView.findViewById(R.id.fav_yellow);
-/*
-            if(favouriteValue.equals("yes")){
-                inFavs.setVisibility(View.VISIBLE);
-                notFav.setVisibility(View.INVISIBLE);
-            }else if(favouriteValue.equals("no")) {
-                notFav.setVisibility(View.VISIBLE);
-                inFavs.setVisibility(View.INVISIBLE);
-            }
-            */
+            notFav = rowView.findViewById(R.id.fav_grey);
+            inFavs = rowView.findViewById(R.id.fav_yellow);
 
             updateStar(favouriteValue);
             //state=0;
@@ -423,10 +548,6 @@ public class PhraseListActivity extends AppCompatActivity implements PhrasesExpa
                 public void onClick(View v) {
                     inFavs.setVisibility(View.VISIBLE);
                     notFav.setVisibility(View.INVISIBLE);
-                    //dbhelper.addFavourite(phraseID);
-                    //adapter.notifyDataSetChanged();
-                    // new checkFavourite().execute();
-                    //favouriteValue = cursor.getString(6);
                     Toast.makeText(getApplicationContext(), favouriteValue,
                             Toast.LENGTH_SHORT).show();
 
@@ -515,7 +636,8 @@ public class PhraseListActivity extends AppCompatActivity implements PhrasesExpa
                 phrase.setPhraseSectionId(phraseList.get(i).getPhraseSectionId());
                 phrase.setTranslation(phraseList.get(i).getTranslation());
                 phrase.setAtesoAudio(phraseList.get(i).getAtesoAudio());
-                phrase.setPhraseId(phraseList.get(i).getPhraseId());
+                phrase.setPhrasePic(phraseList.get(i).getPhrasePic());
+                phrase.setRowId(phraseList.get(i).getRowId());
                 phrase.setAtesoPhrase(phraseList.get(i).getAtesoPhrase());
 
                 //engPhrase = phraseList.get(i).getTranslation();

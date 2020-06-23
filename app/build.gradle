@@ -12,15 +12,27 @@ allprojects {
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
+    //added to support room migrations testing
+    sourceSets {
+        androidTest.assets.srcDirs +=
+                files("$projectDir/schemas".toString())
+    }
 
     defaultConfig {
         applicationId "com.learnateso.learn_ateso"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 7
-        versionName "1.5.2"
+        versionCode 9
+        versionName "1.5.3"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
+        //location of json files used for testing room migrations
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildTypes {
         release {
@@ -40,6 +52,7 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     testImplementation "junit:junit:$rootProject.ext.junitVersion"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
@@ -50,9 +63,12 @@ dependencies {
     implementation 'androidx.browser:browser:1.2.0'
 
     // Room components
-    implementation 'androidx.room:room-runtime:2.0.0'
-    annotationProcessor 'androidx.room:room-compiler:2.0.0'
-    androidTestImplementation 'androidx.room:room-testing:2.0.0'
+    implementation 'androidx.room:room-runtime:2.1.0'
+    annotationProcessor 'androidx.room:room-compiler:2.1.0'
+    androidTestImplementation 'androidx.room:room-testing:2.1.0'
+
+    //for testing room migrations
+    //androidTestImplementation'androidx.room:room-testing:2.2.5'
 
     // Lifecycle components
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'

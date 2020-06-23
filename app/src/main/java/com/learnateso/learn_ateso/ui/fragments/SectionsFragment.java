@@ -88,6 +88,13 @@ public class SectionsFragment extends Fragment implements CategorySectionsAdapte
     @Override
     public void onResume() {
         super.onResume();
+        try {
+            //set the name of this fragment in the toolbar
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(categoryName);
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
+        }
 
         //sectionsViewModel.getSections(getArguments().getString("catname"));
         //Toast.makeText(getActivity(), ""+getArguments().getInt("category_id"), Toast.LENGTH_SHORT).show();

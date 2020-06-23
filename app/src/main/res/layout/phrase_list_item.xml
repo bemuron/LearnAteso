@@ -14,6 +14,16 @@
         android:padding="15dp"
         android:text="Ateso Phrase"/>
 
+    <ImageView
+        android:id="@+id/phrase_pic"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/big_eyes" />
+
     <RelativeLayout
         android:layout_width="match_parent" android:layout_height="match_parent"
         android:gravity="center">

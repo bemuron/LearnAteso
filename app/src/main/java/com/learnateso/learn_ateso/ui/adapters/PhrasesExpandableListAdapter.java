@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import androidx.core.content.ContextCompat;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +13,23 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.learnateso.learn_ateso.R;
 import com.learnateso.learn_ateso.models.Phrase;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class PhrasesExpandableListAdapter extends BaseExpandableListAdapter {
+    private static final String TAG = PhrasesExpandableListAdapter.class.getSimpleName();
     private Context context;
     private List<String> expandableListTitle;
     private LinkedHashMap<String, List<Phrase>> expandableListDetail;
     private String englishPhrase;
     private int groupPosition;
     private PhrasesExpandableListAdapterListener listener;
-    private ImageView notFav, inFavs, iconImp;
+    private ImageView notFav, inFavs, iconImp, phrasePic;
 
     public  PhrasesExpandableListAdapter(Context context, List<String> expandableListTitle,
                                          LinkedHashMap<String, List<Phrase>> expandableListDetail,
@@ -117,6 +122,21 @@ public class PhrasesExpandableListAdapter extends BaseExpandableListAdapter {
                 listener.onIconImportantClicked(expandedListText, groupPosition);
             }
         });
+
+        //get and display the phrase pic
+        phrasePic = convertView.findViewById(R.id.phrase_pic);
+
+        if (expandedListText.getPhrasePic() == null){
+            Log.e(TAG,"Phrase image name = null");
+            phrasePic.setVisibility(View.GONE);
+        }else{
+            phrasePic.setVisibility(View.VISIBLE);
+            Log.e(TAG,"Phrase image name = "+expandedListText.getPhrasePic());
+            String imageName = expandedListText.getPhrasePic().toLowerCase(Locale.US);
+            int imageId = context.getResources().getIdentifier(imageName,
+                    "drawable", context.getPackageName());
+            phrasePic.setImageResource(imageId);
+        }
 
         //share imageview and click listener
         ImageView share = convertView.findViewById(R.id.share);

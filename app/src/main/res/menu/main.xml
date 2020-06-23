@@ -1,13 +1,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".ui.activities.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".ui.activities.Main2Activity">
 
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/about_ateso"
-        android:title="@string/about" />
-    <item android:id="@+id/fPhrase"
-        android:title="@string/favourite" />
-    <item android:id="@+id/abbreviated"
-        android:title="@string/abbreviation" />
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_menu_search"
+        android:title="@string/action_search"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <!--<item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />-->
+    <item android:id="@+id/action_favorite"
+        android:orderInCategory="95"
+        android:title="@string/favourite"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_random_phrase"
+        android:orderInCategory="96"
+        android:title="@string/random_wrd"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_about_ateso"
+        android:orderInCategory="97"
+        android:title="@string/about"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_share"
+        android:orderInCategory="98"
+        android:title="Share"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_feedback"
+        android:orderInCategory="99"
+        android:title="@string/action_feedback"
+        app:showAsAction="never"/>
 </menu>

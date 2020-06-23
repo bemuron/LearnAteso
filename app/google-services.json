@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "384626174328",
+    "firebase_url": "https://learnateso.firebaseio.com",
+    "project_id": "learnateso",
+    "storage_bucket": "learnateso.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384626174328:android:2897f7dbfbe134d4",
+        "android_client_info": {
+          "package_name": "com.learnateso.learn_ateso"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384626174328-41bsep1gf827f4qmcj9sdrq1mui4a69g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.learnateso.learn_ateso",
+            "certificate_hash": "6486f94767a40670ec42b2af20c5df3a38439f2b"
+          }
+        },
+        {
+          "client_id": "384626174328-2k9mekdartdllbj8920h567ilv1e57cs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEDyGLlmq29nKBmDrHQvJm_PlVEB8Xx4M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384626174328-2k9mekdartdllbj8920h567ilv1e57cs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      },
+      "admob_app_id": "ca-app-pub-3075330085087679~4136422493"
+    }
+  ],
+  "configuration_version": "1"
+}
