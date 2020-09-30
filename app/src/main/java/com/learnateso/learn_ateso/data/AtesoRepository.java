@@ -18,6 +18,7 @@ import com.learnateso.learn_ateso.models.Category;
 import com.learnateso.learn_ateso.data.database.SectionsDao;
 import com.learnateso.learn_ateso.data.database.UsersDao;
 import com.learnateso.learn_ateso.data.database.WorkBookDao;
+import com.learnateso.learn_ateso.models.ExploreCategory;
 import com.learnateso.learn_ateso.models.Phrase;
 import com.learnateso.learn_ateso.models.Section;
 import com.learnateso.learn_ateso.models.User;
@@ -40,6 +41,7 @@ public class AtesoRepository {
     private PhrasesDao mPhrasesDao;
     private AppExecutors mExecutors;
     private LiveData<List<Category>> mAllCategories;
+    private LiveData<List<ExploreCategory>> mExploreCategories;
     private LiveData<List<Section>> mAllSections;
     private LiveData<List<Phrase>> phraseSectionList;
     private LiveData<List<Phrase>> favouritePhraseList;
@@ -61,6 +63,7 @@ public class AtesoRepository {
         mWorkBookDao = db.workBookDao();
         mPhrasesDao = db.phrasesDao();
         mAllCategories = mCategoriesDao.getAllCategories();
+        mExploreCategories = mCategoriesDao.getExploreCategories();
         mExecutors = AppExecutors.getInstance();
         instance = this;
         //mUserDetail = mUsersDao.getUserDetails();
@@ -75,6 +78,11 @@ public class AtesoRepository {
     //thread. Observed LiveData will notify the observer when the data has changed
     public LiveData<List<Category>> getAllCategories(){
         return mAllCategories;
+    }
+
+    //get the explore categories
+    public LiveData<List<ExploreCategory>> getExploreCategories(){
+        return mExploreCategories;
     }
 
     public LiveData<List<Section>> getSections( final int categoryId) {
