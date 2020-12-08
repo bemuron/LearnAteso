@@ -1,12 +1,18 @@
 package com.learnateso.learn_ateso.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -21,11 +27,18 @@ import android.widget.Toast;
 import com.learnateso.learn_ateso.R;
 import com.learnateso.learn_ateso.ui.fragments.SectionsFragment;
 
+import static com.google.android.gms.ads.RequestConfiguration.MAX_AD_CONTENT_RATING_G;
+import static com.google.android.gms.ads.RequestConfiguration.MAX_AD_CONTENT_RATING_PG;
+import static com.google.android.gms.ads.RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE;
+import static com.google.android.gms.ads.RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE;
+
 public class CategorySectionsActivity extends AppCompatActivity {
     private static final String TAG = CategorySectionsActivity.class.getSimpleName();
     public static CategorySectionsActivity instance;
     private String catname;
+    private AdView mAdView;
     private InterstitialAd mInterstitialAd;
+    private AdRequest adRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,50 +49,78 @@ public class CategorySectionsActivity extends AppCompatActivity {
         setupActionBar();
         instance = this;
 
-        //initialise the ads
-        MobileAds.initialize(this, "ca-app-pub-3075330085087679~4136422493");
+        RequestConfiguration requestConfiguration = MobileAds.getRequestConfiguration()
+                .toBuilder()
+                .setTagForChildDirectedTreatment(TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE)
+                .setMaxAdContentRating(MAX_AD_CONTENT_RATING_PG)
+                .build();
 
+        MobileAds.setRequestConfiguration(requestConfiguration);
+
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+        });
+
+        //setup and initialize the interstitial ads
+        // Create the InterstitialAd and set the adUnitId.
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3075330085087679/1767119183");
+        // Defined in res/values/strings.xml
+        mInterstitialAd.setAdUnitId(getString(R.string.live_interstitial_ad_unit_id));
 
-        AdRequest adRequest = new AdRequest.Builder().build();
+        //request for the ad
+        adRequest = new AdRequest.Builder().build();
+        //load it into the object
         mInterstitialAd.loadAd(adRequest);
 
-        mInterstitialAd.setAdListener(new AdListener() {
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+            startActivityAfterAd("notes");
+        }
+
+        //setUpInterstitialAd();
+
+        mAdView = findViewById(R.id.adView);
+        mAdView.setAdListener(new AdListener() {
             private void showToast(String message) {
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAdLoaded() {
-                Log.e(TAG, "Interstitial Ad loaded");
-                mInterstitialAd.show();
+                //showToast("Ad loaded.");
+                mAdView.setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void onAdFailedToLoad(int errorCode) {
+            public void onAdFailedToLoad(LoadAdError loadAdError) {
                 //showToast(String.format("Ad failed to load with error code %d.", errorCode));
-                Log.e(TAG, "Failed to load ad "+errorCode);
+                String error =
+                        String.format(
+                                "domain: %s, code: %d, message: %s",
+                                loadAdError.getDomain(), loadAdError.getCode(), loadAdError.getMessage());
+
+                Log.e(TAG, "onAdFailedToLoad() with error: "+error);
             }
 
             @Override
             public void onAdOpened() {
                 //showToast("Ad opened.");
-                Log.e(TAG, "Ad opened");
             }
 
             @Override
             public void onAdClosed() {
-                Log.e(TAG, "Ad closed");
-
-                //mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                //showToast("Ad closed.");
             }
 
             @Override
             public void onAdLeftApplication() {
-                Log.e(TAG, "Ad left application");
+                //showToast("Ad left application.");
             }
         });
+        adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         //setupActionBar();
 
@@ -154,5 +195,49 @@ public class CategorySectionsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     */
+
+    //show the ad
+    private void showInterstitial() {
+        // Show the ad if it's ready. Otherwise toast and restart the game.
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Log.e(TAG,"Ad did not load");
+        }
+    }
+
+
+    //set up the interstitial ad
+    private void startActivityAfterAd(String activityName){
+
+        mInterstitialAd.setAdListener(
+                new AdListener() {
+                    @Override
+                    public void onAdLoaded() {
+                        Log.i(TAG,"onAdLoaded()");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(LoadAdError loadAdError) {
+                        String error =
+                                String.format(
+                                        "domain: %s, code: %d, message: %s",
+                                        loadAdError.getDomain(), loadAdError.getCode(), loadAdError.getMessage());
+                        Log.e(TAG,"onAdFailedToLoad() with error: " + error);
+                    }
+
+                    @Override
+                    public void onAdClosed() {
+                        Log.e(TAG,"Interstitial Ad closed");
+                        /*if (activityName.equals("favs")){
+                            Intent intent = new Intent(CategorySectionsActivity.this, FavouritesActivity.class);
+                            startActivity(intent);
+                        }else if (activityName.equals("notes")){
+                            Intent intent = new Intent(CategorySectionsActivity.this, NotesListActivity.class);
+                            startActivity(intent);
+                        }*/
+                    }
+                });
+    }
 
 }

@@ -17,7 +17,15 @@ package com.learnateso.learn_ateso.ui.activities;
         import com.google.android.gms.ads.AdView;
         import com.google.android.gms.ads.InterstitialAd;
         import com.google.android.gms.ads.MobileAds;
+        import com.google.android.gms.ads.RequestConfiguration;
+        import com.google.android.gms.ads.initialization.InitializationStatus;
+        import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
         import com.learnateso.learn_ateso.R;
+
+        import static com.google.android.gms.ads.RequestConfiguration.MAX_AD_CONTENT_RATING_G;
+        import static com.google.android.gms.ads.RequestConfiguration.MAX_AD_CONTENT_RATING_PG;
+        import static com.google.android.gms.ads.RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE;
+        import static com.google.android.gms.ads.RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE;
 
 /**
  * Created by BE on 3/24/2018.
@@ -35,8 +43,19 @@ public class ScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_score);
         setupActionBar();
 
-        //initialise the ads
-        MobileAds.initialize(this, "ca-app-pub-3075330085087679~4136422493");
+        RequestConfiguration requestConfiguration = MobileAds.getRequestConfiguration()
+                .toBuilder()
+                .setTagForChildDirectedTreatment(TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE)
+                .setMaxAdContentRating(MAX_AD_CONTENT_RATING_PG)
+                .build();
+
+        MobileAds.setRequestConfiguration(requestConfiguration);
+
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+        });
 
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-3075330085087679/1767119183");

@@ -6,8 +6,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
-        classpath 'com.google.gms:google-services:4.2.0'
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.google.gms:google-services:4.3.4'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -23,21 +23,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-// Define versions in a single place
-ext {
-    // Sdk and tools
-    // Support library and architecture components support minSdk 14 and above.
-
-    // App dependencies
-    supportLibraryVersion = '28.0.0'
-    junitVersion = '4.12'
-    espressoVersion = '3.0.1'
-    runnerVersion = '1.0.1'
-
-    // Architecture Components dependencies
-    roomVersion = '1.1.1'
-    archLifecycleVersion = '1.1.1'
-
 }

@@ -18,6 +18,11 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -53,6 +58,11 @@ import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import static com.google.android.gms.ads.RequestConfiguration.MAX_AD_CONTENT_RATING_G;
+import static com.google.android.gms.ads.RequestConfiguration.MAX_AD_CONTENT_RATING_PG;
+import static com.google.android.gms.ads.RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE;
+import static com.google.android.gms.ads.RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE;
+
 public class Main2Activity extends AppCompatActivity {
 
     private static final String TAG = Main2Activity.class.getSimpleName();
@@ -86,8 +96,19 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        //initialise the ads
-        MobileAds.initialize(this, "ca-app-pub-3075330085087679~4136422493");
+        RequestConfiguration requestConfiguration = MobileAds.getRequestConfiguration()
+                .toBuilder()
+                .setTagForChildDirectedTreatment(TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE)
+                .setMaxAdContentRating(MAX_AD_CONTENT_RATING_PG)
+                .build();
+
+        MobileAds.setRequestConfiguration(requestConfiguration);
+
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+        });
 
         mAdView = findViewById(R.id.adView);
         mAdView.setAdListener(new AdListener() {
@@ -102,9 +123,14 @@ public class Main2Activity extends AppCompatActivity {
             }
 
             @Override
-            public void onAdFailedToLoad(int errorCode) {
+            public void onAdFailedToLoad(LoadAdError loadAdError) {
                 //showToast(String.format("Ad failed to load with error code %d.", errorCode));
-                Log.e(TAG, "Failed to load ad "+errorCode);
+                String error =
+                        String.format(
+                                "domain: %s, code: %d, message: %s",
+                                loadAdError.getDomain(), loadAdError.getCode(), loadAdError.getMessage());
+
+                Log.e(TAG, "onAdFailedToLoad() with error: "+error);
             }
 
             @Override

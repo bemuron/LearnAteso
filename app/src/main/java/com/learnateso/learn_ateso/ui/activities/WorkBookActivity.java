@@ -21,6 +21,9 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.learnateso.learn_ateso.R;
 import com.learnateso.learn_ateso.models.WorkBook;
 import com.learnateso.learn_ateso.ui.fragments.AudioComparisonExerciseFragment;
@@ -31,6 +34,11 @@ import com.learnateso.learn_ateso.ui.fragments.TypeTranslationFragment;
 import com.learnateso.learn_ateso.ui.fragments.VoiceRecordingExerciseFragment;
 import com.learnateso.learn_ateso.ui.fragments.WordMatchingFragment;
 import com.learnateso.learn_ateso.ui.viewmodels.WorkBookViewModel;
+
+import static com.google.android.gms.ads.RequestConfiguration.MAX_AD_CONTENT_RATING_G;
+import static com.google.android.gms.ads.RequestConfiguration.MAX_AD_CONTENT_RATING_PG;
+import static com.google.android.gms.ads.RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE;
+import static com.google.android.gms.ads.RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE;
 
 /**
  * Created by Emo on 3/31/2017.
@@ -67,8 +75,19 @@ public class WorkBookActivity extends AppCompatActivity implements
             //setSupportActionBar(toolbar);
             setupActionBar();
 
-        //initialise the ads
-        MobileAds.initialize(this, "ca-app-pub-3075330085087679~4136422493");
+        RequestConfiguration requestConfiguration = MobileAds.getRequestConfiguration()
+                .toBuilder()
+                .setTagForChildDirectedTreatment(TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE)
+                .setMaxAdContentRating(MAX_AD_CONTENT_RATING_PG)
+                .build();
+
+        MobileAds.setRequestConfiguration(requestConfiguration);
+
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+        });
 
         mAdView = findViewById(R.id.adView);
         mAdView.setAdListener(new AdListener() {

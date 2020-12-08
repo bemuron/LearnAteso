@@ -18,4 +18,19 @@
         android:paddingEnd="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textSize="17sp"/>
 
+    <!--<TextView
+        android:id="@+id/down_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_black"
+        android:textSize="25sp"
+        android:text="@string/down_arrow"/>
+    <TextView
+        android:id="@+id/up_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_black"
+        android:textSize="25sp"
+        android:text="@string/up_arrow"/>-->
+
 </LinearLayout>

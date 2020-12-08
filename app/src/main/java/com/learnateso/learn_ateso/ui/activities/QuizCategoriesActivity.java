@@ -14,11 +14,19 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.learnateso.learn_ateso.R;
 import com.learnateso.learn_ateso.ui.fragments.CategoriesFragment;
 import com.learnateso.learn_ateso.ui.viewmodels.MainActivityViewModel;
 
 import java.util.Random;
+
+import static com.google.android.gms.ads.RequestConfiguration.MAX_AD_CONTENT_RATING_G;
+import static com.google.android.gms.ads.RequestConfiguration.MAX_AD_CONTENT_RATING_PG;
+import static com.google.android.gms.ads.RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE;
+import static com.google.android.gms.ads.RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE;
 
 public class QuizCategoriesActivity extends AppCompatActivity {
     private static final String TAG = QuizCategoriesActivity.class.getSimpleName();
@@ -37,8 +45,19 @@ public class QuizCategoriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz_categories);
         setupActionBar();
 
-        //initialise the ads
-        MobileAds.initialize(this, "ca-app-pub-3075330085087679~4136422493");
+        RequestConfiguration requestConfiguration = MobileAds.getRequestConfiguration()
+                .toBuilder()
+                .setTagForChildDirectedTreatment(TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE)
+                .setMaxAdContentRating(MAX_AD_CONTENT_RATING_PG)
+                .build();
+
+        MobileAds.setRequestConfiguration(requestConfiguration);
+
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+        });
 
         mAdView = findViewById(R.id.adView);
         mAdView.setAdListener(new AdListener() {
