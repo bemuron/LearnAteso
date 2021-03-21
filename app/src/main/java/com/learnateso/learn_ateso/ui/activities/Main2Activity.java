@@ -539,7 +539,7 @@ public class Main2Activity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
         }
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("message/rfc822");
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"contact@emtechint.com"});
         intent.putExtra(Intent.EXTRA_SUBJECT, "Query from Learn Ateso app user");
         intent.putExtra(Intent.EXTRA_TEXT, body);

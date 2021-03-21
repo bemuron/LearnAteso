@@ -110,7 +110,7 @@
             android:name=".ui.activities.ScoreActivity"
             android:label="@string/score"
             android:noHistory="true"
-            android:screenOrientation="portrait"></activity> <!-- About Ateso Activity -->
+            android:screenOrientation="portrait"/> <!-- About Ateso Activity -->
         <activity
             android:name=".ui.activities.AboutAtesoActivity"
             android:label="@string/about"
