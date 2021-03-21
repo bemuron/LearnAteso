@@ -7,18 +7,18 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_account_circle_black_24dp"
-        android:title="@string/title_profile" />
+        android:id="@+id/navigation_explore_teso"
+        android:icon="@drawable/ic_explore"
+        android:title="@string/title_explore_teso" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_shopping_cart_black_24dp"
-        android:title="@string/title_shop" />
+        android:id="@+id/navigation_teso_heritage"
+        android:icon="@drawable/ic_heritage"
+        android:title="@string/title_teso_heritage" />
 
     <item
-        android:id="@+id/pro_version"
-        android:icon="@drawable/ic_system_update_black_24dp"
-        android:title="@string/title_pro" />
+        android:id="@+id/navigation_events"
+        android:icon="@drawable/ic_event"
+        android:title="@string/title_upcoming_events" />
 
 </menu>

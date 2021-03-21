@@ -41,7 +41,7 @@ public class AtesoRepository {
     private PhrasesDao mPhrasesDao;
     private AppExecutors mExecutors;
     private LiveData<List<Category>> mAllCategories;
-    private LiveData<List<ExploreCategory>> mExploreCategories;
+    //private LiveData<List<ExploreCategory>> mExploreCategories;
     private LiveData<List<Section>> mAllSections;
     private LiveData<List<Phrase>> phraseSectionList;
     private LiveData<List<Phrase>> favouritePhraseList;
@@ -63,7 +63,7 @@ public class AtesoRepository {
         mWorkBookDao = db.workBookDao();
         mPhrasesDao = db.phrasesDao();
         mAllCategories = mCategoriesDao.getAllCategories();
-        mExploreCategories = mCategoriesDao.getExploreCategories();
+        //mExploreCategories = mCategoriesDao.getExploreCategories();
         mExecutors = AppExecutors.getInstance();
         instance = this;
         //mUserDetail = mUsersDao.getUserDetails();
@@ -81,9 +81,9 @@ public class AtesoRepository {
     }
 
     //get the explore categories
-    public LiveData<List<ExploreCategory>> getExploreCategories(){
+    /*public LiveData<List<ExploreCategory>> getExploreCategories(){
         return mExploreCategories;
-    }
+    }*/
 
     public LiveData<List<Section>> getSections( final int categoryId) {
 

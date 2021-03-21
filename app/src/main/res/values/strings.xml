@@ -195,9 +195,9 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_home">Home</string>
-    <string name="title_profile">You</string>
-    <string name="title_shop">Shop</string>
-    <string name="title_pro">LA+</string>
+    <string name="title_explore_teso">Explore</string>
+    <string name="title_teso_heritage">Heritage</string>
+    <string name="title_upcoming_events">Events</string>
     <string name="title_activity_main3">Main3Activity</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>

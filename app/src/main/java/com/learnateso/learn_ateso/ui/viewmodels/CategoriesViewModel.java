@@ -30,7 +30,7 @@ public class CategoriesViewModel extends AndroidViewModel {
         super(application);
         mRepository = new AtesoRepository(application);
         mAllCategories = mRepository.getAllCategories();
-        mExploreCategories = mRepository.getExploreCategories();
+        //mExploreCategories = mRepository.getExploreCategories();
     }
 
     //a getter method for all the categories. This hides the implementation from the UI
@@ -43,9 +43,9 @@ public class CategoriesViewModel extends AndroidViewModel {
     public void insert(Category category) { mRepository.insert(category); }
 
     //a getter method for all the explore categories. This hides the implementation from the UI
-    public LiveData<List<ExploreCategory>> getExploreCategories(){
+    /*public LiveData<List<ExploreCategory>> getExploreCategories(){
         return mExploreCategories;
-    }
+    }*/
 
 
 }

@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,11 +33,13 @@ import java.util.List;
 
 public class CategoriesFragment extends Fragment implements
         CategoryGridAdapter.CategoryGridAdapterOnItemClickHandler {
+    private static final String TAG = CategoriesFragment.class.getSimpleName();
 
     public static final String ATESO_QUIZ = "Ateso_Quiz";
-    public static final String ARG_TITLE = "category_name";
+    private static final String FRAGMENT_NAME = "fragment_name";
 
     private TextView textView;
+    private String mFragmentName;
 
     private RecyclerView mRecyclerView;
 
@@ -65,12 +69,27 @@ public class CategoriesFragment extends Fragment implements
         if (getArguments() != null) {
             isAtesoQuiz = getArguments().getBoolean(ATESO_QUIZ);
         }
+
+        try {
+            //set the name of this fragment in the toolbar
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Learn Ateso");
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         //mCategoriesViewModel.start();
+        try {
+            //set the name of this fragment in the toolbar
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Learn Ateso");
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     @Nullable

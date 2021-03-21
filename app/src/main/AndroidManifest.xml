@@ -40,7 +40,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.activities.Main2Activity"
+            android:name=".ui.activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
@@ -68,19 +68,19 @@
 
         <!-- Points to searchable activity so the whole app can invoke search. -->
         <meta-data android:name="android.app.default_searchable"
-            android:value=".ui.activities.Main2Activity" />
+            android:value=".ui.activities.MainActivity" />
 
         <!-- CategorySections Activity -->
         <activity
             android:name=".ui.activities.CategorySectionsActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".ui.activities.Main2Activity"
+            android:parentActivityName=".ui.activities.MainActivity"
             android:screenOrientation="portrait" />
         <!-- QuizCategories Activity -->
         <activity android:name=".ui.activities.QuizCategoriesActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:parentActivityName=".ui.activities.Main2Activity"/>
+            android:parentActivityName=".ui.activities.MainActivity"/>
         <!-- PhraseList Activity -->
         <activity
             android:name=".ui.activities.PhraseListActivity"
@@ -104,7 +104,7 @@
             android:name=".ui.activities.SettingsActivity"
             android:label="@string/action_settings"
             android:noHistory="true"
-            android:parentActivityName=".ui.activities.Main2Activity"
+            android:parentActivityName=".ui.activities.MainActivity"
             android:screenOrientation="portrait" /> <!-- Display score Activity -->
         <activity
             android:name=".ui.activities.ScoreActivity"
@@ -118,7 +118,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activities.Main2Activity" />
+                android:value=".ui.activities.MainActivity" />
         </activity>
     </application>
 

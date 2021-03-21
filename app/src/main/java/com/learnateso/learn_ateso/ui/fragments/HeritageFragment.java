@@ -19,9 +19,9 @@ import com.learnateso.learn_ateso.R;
  */
 public class HeritageFragment extends Fragment {
     private static final String TAG = HeritageFragment.class.getSimpleName();
-    private static final String CATEGORY_NAME = "category_name";
+    private static final String FRAGMENT_NAME = "fragment_name";
 
-    private String mCategoryName;
+    private String mFragmentName;
 
     public HeritageFragment() {
         // Required empty public constructor
@@ -31,14 +31,14 @@ public class HeritageFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param categoryName Name of the category we are in.
+     * @param fragmentName Name of the category we are in.
      * @return A new instance of fragment EventsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static EventsFragment newInstance(String categoryName) {
+    public static EventsFragment newInstance(String fragmentName) {
         EventsFragment fragment = new EventsFragment();
         Bundle args = new Bundle();
-        args.putString(CATEGORY_NAME, categoryName);
+        args.putString(FRAGMENT_NAME, fragmentName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,12 +47,12 @@ public class HeritageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mCategoryName = getArguments().getString(CATEGORY_NAME);
+            mFragmentName = getArguments().getString(FRAGMENT_NAME);
         }
 
         try {
             //set the name of this fragment in the toolbar
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mCategoryName);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mFragmentName);
         }catch (Exception e){
             e.printStackTrace();
             Log.e(TAG, e.getMessage());
@@ -64,7 +64,7 @@ public class HeritageFragment extends Fragment {
         super.onResume();
         try {
             //set the name of this fragment in the toolbar
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mCategoryName);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mFragmentName);
         }catch (Exception e){
             e.printStackTrace();
             Log.e(TAG, e.getMessage());

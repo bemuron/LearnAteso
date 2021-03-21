@@ -1,9 +1,10 @@
 package com.learnateso.learn_ateso.ui.fragments;
 
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,20 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.learnateso.learn_ateso.R;
+import com.learnateso.learn_ateso.ui.viewmodels.CategoriesViewModel;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link EventsFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by BE on 2/13/2018.
  */
-public class EventsFragment extends Fragment {
-    private static final String TAG = EventsFragment.class.getSimpleName();
+
+public class ExploreFragment extends Fragment {
+    private static final String TAG = ExploreFragment.class.getSimpleName();
     private static final String FRAGMENT_NAME = "fragment_name";
 
     private String mFragmentName;
 
-    public EventsFragment() {
-        // Required empty public constructor
+    private CategoriesViewModel mCategoriesViewModel;
+
+    public ExploreFragment(){
+
     }
 
     /**
@@ -34,9 +37,8 @@ public class EventsFragment extends Fragment {
      * @param fragmentName Name of the category we are in.
      * @return A new instance of fragment EventsFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static EventsFragment newInstance(String fragmentName) {
-        EventsFragment fragment = new EventsFragment();
+    public static ExploreFragment newInstance(String fragmentName) {
+        ExploreFragment fragment = new ExploreFragment();
         Bundle args = new Bundle();
         args.putString(FRAGMENT_NAME, fragmentName);
         fragment.setArguments(args);
@@ -69,15 +71,25 @@ public class EventsFragment extends Fragment {
             e.printStackTrace();
             Log.e(TAG, e.getMessage());
         }
-
-        //sectionsViewModel.getSections(getArguments().getString("catname"));
-        //Toast.makeText(getActivity(), ""+getArguments().getInt("category_id"), Toast.LENGTH_SHORT).show();
     }
 
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_events, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
+
+        /*
+        Use ViewModelProviders to associate your ViewModel with your UI controller.
+        When your app first starts, the ViewModelProviders will create the ViewModel.
+        When the activity is destroyed, for example through a configuration change,
+        the ViewModel persists. When the activity is re-created, the ViewModelProviders
+        return the existing ViewModel
+         */
+        mCategoriesViewModel = ViewModelProviders.of
+                ((AppCompatActivity)getActivity()).get(CategoriesViewModel.class);
+
+        return rootView;
     }
+
 }

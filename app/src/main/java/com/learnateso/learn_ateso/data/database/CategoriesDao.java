@@ -29,12 +29,12 @@ public interface CategoriesDao {
     @Query("SELECT * from categories ORDER BY category_id ASC")
     LiveData<List<Category>> getAllCategories();
 
-    @Query("SELECT * from explore_categories ORDER BY explore_id ASC")
-    LiveData<List<ExploreCategory>> getExploreCategories();
+    //@Query("SELECT * from explore_categories ORDER BY explore_id ASC")
+    //LiveData<List<ExploreCategory>> getExploreCategories();
 
     /*
     insert explore categories into db
      */
-    @Insert
-    void insertExploreCategory(ExploreCategory category);
+    //@Insert
+    //void insertExploreCategory(ExploreCategory category);
 }
