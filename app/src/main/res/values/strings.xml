@@ -200,6 +200,12 @@
     <string name="title_upcoming_events">Events</string>
     <string name="title_activity_main3">Main3Activity</string>
 
+    <string name="exp_tab_articles">Articles</string>
+    <string name="exp_tab_proverbs">Proverbs</string>
+    <string name="exp_tab_videos">Videos</string>
+    <string name="exp_tab_riddles">Riddles</string>
+    <string name="exp_tab_wise_sayings">Wise sayings</string>
+
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
